@@ -7,6 +7,10 @@ Construí um modelo de Machine Learning com o objetivo de classificar amostras d
 Realizei a aquisição, pré-processamento e tratamento dos dados, além do desenvolvimento do modelo. <br><br>
 Neste repositório, há o Jupyter Notebook e o arquivo .py, ambos com o código para que seja possível a reprodução do projeto.
 
+## Justificativa e Objetivo
+A Organização Mundial da Saúde já incentiva as análises de eventos moleculares, como a  metilação de DNA, para a classificação de tumores do sistema nervoso central. <br><br>
+Meu objetivo com este projeto final foi aplicar o que foi visto ao longo do Camp - Análise de dados e Ciência de Dados, à análise de metilação de DNA para tentar classificar amostras de Astrocitoma e Glioblastoma, construindo um algoritmo supervisionado Random Forest.
+
 ## Instalação
 
 No bloco de código abaixo estão os pacotes, classes e funções utilizados ao longo do projeto com uma breve descrição de suas finalidades
@@ -99,7 +103,71 @@ def formar_dataframe(lista_de_amostras):
 | GSM1288116 | 0.807990 | 0.429600 | ... | 2 |
 | GSM1288117 | 0.220680 | 0.250000 | ... | 2 |
 
-80 rows X 27579 columns
+80 rows X 27579 columns <br><br>
+
+Como etapa de tratamento dos dados, foram removidos os dados faltantes, pois eram poucos: 
+
+```python 
+methylation_matrix = methylation_matrix.dropna(axis = "columns") #Remove colunas com NAs
+methylation_matrix.shape #Nova dimensão da matriz de metilação de DNA: 27.274 probes (col) X 80 samples (row)
+```
+ ### Seleção de features
+ 
+Como há um número muito alto do que seriam as features (27.274), foi feita uma seleção de features baseada em filtro para diminuir esse número antes da construção do modelo. Essa etapa foi realizada utilizando o teste qui-quadrado, que seleciona as 1000 melhores features:
+
+```python 
+#Separando as features da label
+X = methylation_matrix.iloc[:, :-1]
+y = methylation_matrix.iloc[:, -1]
+
+#Seleção de features baseada em filtro
+selector = SelectKBest(chi2, k=1000) #Seleciona as 1000 melhores features usando o teste qui-quadrado
+X_new = selector.fit_transform(X, y) #seleciona as colunas no dataframe original
+
+#Obtendo as colunas selecionadas
+mask = selector.get_support() #boolean array com as colunas selecionadas
+new_features = X.columns[mask] #array com os nomes das colunas selecionadas
+
+#Criando o novo dataframe apenas com as colunas selecionadas e o rótulo
+filtered_methylation_matrix = methylation_matrix[list(new_features)]
+filtered_methylation_matrix["label"] = label
+```
+
+### Construção do modelo 
+
+Foi feita a partição do dataset em 75% treino e 25% teste e, dessa forma, foi construído o modelo com os parâmetros padrões:
+
+```python
+SEED = 42
+
+X = filtered_methylation_matrix.drop(columns=["label"])
+y = filtered_methylation_matrix.label
+
+#25% para teste
+Xtrain, Xtest, ytrain, ytest = train_test_split(X, y, test_size = 0.25, stratify = y, random_state = SEED)
+#Treinamento: 60, Teste: 20
+
+#Treino e teste com os parâmetros padrões
+model = RandomForestClassifier()
+model.fit(Xtrain,ytrain)
+acc = accuracy_score(ytest, model.predict(Xtest))
+```
+A acurácia obtida, armazenada em ``` acc ``` foi de 0.9 (90%).<br><br>
+Como podemos observar na seguinte matriz confusão, houveram 11 Verdadeiros Positivos, 0 Falsos Negativos, 2 Falsos Positivos e 7 Verdadeiros Negativos: <br>
+![image](https://user-images.githubusercontent.com/49324017/226037713-64ae229c-6365-4292-8f8f-4e20bff2adb7.png)
+
+<br>
+Código para a matriz de confusão:
+
+```python 
+ConfusionMatrixDisplay(confusion_matrix=confusion_matrix(ytest, model.predict(Xtest)), display_labels=model.classes_).plot()
+plt.title("Matriz confusão\n ")
+plt.show()
+```
+
+## Conclusões
+
+Como é possível observar, 
 
 
 
