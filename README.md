@@ -167,7 +167,9 @@ plt.show()
 
 ## Conclusões
 
-Como é possível observar, 
+Como é possível observar, o modelo obteve uma taxa alta de acurácia. Isso pode indicar, sim, que foi um bom classificador, no entanto eu me aprofundaria nas questões de Etapa de Validaçao e Ajuste de Hiperparâmetros para me certificar que não houve sobreajuste do modelo no meu conjunto de treino. Também não tenho certeza acerca da forma que escolhi realizar a seleção de features, visto que eu não tenho muito conhecimento sobre isso hoje. <br><br>
+Dessa forma, posso dizer que o projeto foi muito importante para a fixação do conteúdo e treinamento de tudo que aprendi e, por mais que não verifiquei as questões citadas acima, fico satisfeita com o aprendizado.
+
 
 
 
