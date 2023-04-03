@@ -46,8 +46,8 @@ Com isso, foi possível observar o número total de amostras (N=145).
 
 ### Seleção do espaço amostral
 
-A partir desta análise exploratória, foi feita a deleção de 25 amostras que não continham dados de metilação de DNA, diminuindo o espaço amostral para 120. <br><br>
-Dentre essas 120 amostras, foram filtradas as amostras da classe "Human Astrocytoma" e "Human Glioblastoma", que continham 43 e 37 amostras, respectivamente. <br><br>
+A partir desta análise exploratória, foi feita a deleção de 20 amostras que não continham dados de metilação de DNA, diminuindo o espaço amostral para 125. <br><br>
+Dentre essas 125 amostras, foram filtradas as amostras da classe "Human Astrocytoma" e "Human Glioblastoma", que continham 43 e 37 amostras, respectivamente. <br><br>
 Logo, o espaço amostral desse projeto foi de 80 amostras, divididas entre amostras de Astrocitoma e Glioblastoma. <br><br>
 
 ```python 
