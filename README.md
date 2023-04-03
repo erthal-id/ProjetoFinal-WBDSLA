@@ -29,7 +29,7 @@ from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay #Construç�
 
 ## Execução
 
-Meu projeto não há arquivos de entrada e saída que necessariamente precisam estar na máquina de quem está o executando. <br><br>
+No meu projeto não há arquivos de entrada e saída que necessariamente precisam estar na máquina de quem está o executando. <br><br>
 O dado deste projeto pode ser encontrado no banco de dados GEO (Gene Expression Omnibus), do NCBI (National Center for Biotechnology Information), através do ID: GSE53229. <br><br>
 O ID foi utilizado para a aquisição desse dado para o ambiente de execução, como foi feito a seguir: 
 
@@ -46,7 +46,7 @@ Com isso, foi possível observar o número total de amostras (N=145).
 
 ### Seleção do espaço amostral
 
-A partir desta análise exploratória, foi feita a deleção de 20 amostras que não continham dados de metilação de DNA, diminuindo o espaço amostral para 120. <br><br>
+A partir desta análise exploratória, foi feita a deleção de 25 amostras que não continham dados de metilação de DNA, diminuindo o espaço amostral para 120. <br><br>
 Dentre essas 120 amostras, foram filtradas as amostras da classe "Human Astrocytoma" e "Human Glioblastoma", que continham 43 e 37 amostras, respectivamente. <br><br>
 Logo, o espaço amostral desse projeto foi de 80 amostras, divididas entre amostras de Astrocitoma e Glioblastoma. <br><br>
 
